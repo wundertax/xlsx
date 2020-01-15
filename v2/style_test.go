@@ -59,7 +59,7 @@ func (s *StyleSuite) TestMakeXLSXStyleElements(c *C) {
 
 func TestReadCellColorBackground(t *testing.T) {
 	c := qt.New(t)
-	xFile, err := OpenFile("./testdocs/color_stylesheet.xlsx")
+	xFile, err := OpenFile("../testdocs/color_stylesheet.xlsx")
 	c.Assert(err, qt.Equals, nil)
 	c.Assert(xFile.styles.Fills.Fill, qt.HasLen, 4)
 	c.Assert(xFile.styles.Colors.IndexedColors, qt.HasLen, 64)

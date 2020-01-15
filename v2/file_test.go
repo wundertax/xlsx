@@ -57,7 +57,7 @@ func (l *FileSuite) TestOpenFile(c *C) {
 	var xlsxFile *File
 	var err error
 
-	xlsxFile, err = OpenFile("./testdocs/testfile.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(xlsxFile, NotNil)
 }
@@ -71,7 +71,7 @@ func (l *FileSuite) TestPartialReadsWithFewSharedStringsOnlyPartiallyReads(c *C)
 	// to anywhere near a significant amount of 11 million. We're testing that this number is low, to ensure that partial
 	// reads are fast.
 	readLimit := 20 * 1000
-	reader, size, err := NewReaderAtCounter("testdocs/large_sheet_no_shared_strings_no_dimension_tag.xlsx")
+	reader, size, err := NewReaderAtCounter("../testdocs/large_sheet_no_shared_strings_no_dimension_tag.xlsx")
 	if err != nil {
 		c.Fatal(err)
 	}
@@ -97,7 +97,7 @@ func (l *FileSuite) TestPartialReadsWithLargeSharedStringsOnlyPartiallyReads(c *
 	// to anywhere near a significant amount of 7 million. We're testing that this number is low, to ensure that partial
 	// reads are fast.
 	readLimit := int(1.2 * 1000 * 1000)
-	reader, size, err := NewReaderAtCounter("testdocs/large_sheet_large_sharedstrings_dimension_tag.xlsx")
+	reader, size, err := NewReaderAtCounter("../testdocs/large_sheet_large_sharedstrings_dimension_tag.xlsx")
 	if err != nil {
 		c.Fatal(err)
 	}
@@ -116,7 +116,7 @@ func (l *FileSuite) TestPartialReadsWithLargeSharedStringsOnlyPartiallyReads(c *
 
 func (l *FileSuite) TestPartialReadsWithFewerRowsThanRequested(c *C) {
 	rowLimit := 10
-	file, err := OpenFileWithRowLimit("testdocs/testfile.xlsx", rowLimit)
+	file, err := OpenFileWithRowLimit("../testdocs/testfile.xlsx", rowLimit)
 	if err != nil {
 		c.Fatal(err)
 	}
@@ -129,13 +129,13 @@ func (l *FileSuite) TestOpenFileWithoutStyleAndSharedStrings(c *C) {
 	var xlsxFile *File
 	var error error
 
-	xlsxFile, error = OpenFile("./testdocs/noStylesAndSharedStringsTest.xlsx")
+	xlsxFile, error = OpenFile("../testdocs/noStylesAndSharedStringsTest.xlsx")
 	c.Assert(error, IsNil)
 	c.Assert(xlsxFile, NotNil)
 }
 
 func (l *FileSuite) TestOpenFileWithChartsheet(c *C) {
-	xlsxFile, error := OpenFile("./testdocs/testchartsheet.xlsx")
+	xlsxFile, error := OpenFile("../testdocs/testchartsheet.xlsx")
 	c.Assert(error, IsNil)
 	c.Assert(xlsxFile, NotNil)
 }
@@ -146,7 +146,7 @@ func (l *FileSuite) TestOpenFileWithChartsheet(c *C) {
 func (l *FileSuite) TestReadSharedStringsFromZipFile(c *C) {
 	var xlsxFile *File
 	var err error
-	xlsxFile, err = OpenFile("./testdocs/testfile.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(xlsxFile.referenceTable, NotNil)
 }
@@ -176,7 +176,7 @@ func (l *FileSuite) TestReadStylesFromZipFile(c *C) {
 	var border xlsxBorder
 	var xf xlsxXf
 
-	xlsxFile, err = OpenFile("./testdocs/testfile.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(xlsxFile.styles, NotNil)
 
@@ -249,7 +249,7 @@ func (l *FileSuite) TestReadWorkbookRelationsFromZipFile(c *C) {
 	var xlsxFile *File
 	var err error
 
-	xlsxFile, err = OpenFile("./testdocs/testfile.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(len(xlsxFile.Sheets), Equals, 3)
 	sheet, ok := xlsxFile.Sheet["Tabelle1"]
@@ -265,7 +265,7 @@ func TestGetStyleFromZipFile(t *testing.T) {
 	var style *Style
 	var val string
 
-	xlsxFile, err = OpenFile("./testdocs/testfile.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testfile.xlsx")
 	c.Assert(err, qt.IsNil)
 	sheetCount := len(xlsxFile.Sheets)
 	c.Assert(sheetCount, qt.Equals, 3)
@@ -317,7 +317,7 @@ func (l *FileSuite) TestCreateSheet(c *C) {
 	var err error
 	var sheet *Sheet
 	var row *Row
-	xlsxFile, err = OpenFile("./testdocs/testfile.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(xlsxFile, NotNil)
 	sheetLen := len(xlsxFile.Sheets)
@@ -389,7 +389,7 @@ func (l *FileSuite) TestAppendSheetWithDuplicateName(c *C) {
 // Test that we can read & create a 31 rune sheet name
 func (l *FileSuite) TestMaxSheetNameLength(c *C) {
 	// Open a genuine xlsx created by Microsoft Excel 2007
-	xlsxFile, err := OpenFile("./testdocs/max_sheet_name_length.xlsx")
+	xlsxFile, err := OpenFile("../testdocs/max_sheet_name_length.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(xlsxFile, NotNil)
 	c.Assert(xlsxFile.Sheets[0].Name, Equals, "αααααβββββγγγγγδδδδδεεεεεζζζζζη")
@@ -945,19 +945,19 @@ type SliceReaderSuite struct{}
 var _ = Suite(&SliceReaderSuite{})
 
 func (s *SliceReaderSuite) TestFileToSlice(c *C) {
-	output, err := FileToSlice("./testdocs/testfile.xlsx")
+	output, err := FileToSlice("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	fileToSliceCheckOutput(c, output)
 }
 
 func (s *SliceReaderSuite) TestFileToSliceMissingCol(c *C) {
 	// Test xlsx file with the A column removed
-	_, err := FileToSlice("./testdocs/testFileToSlice.xlsx")
+	_, err := FileToSlice("../testdocs/testFileToSlice.xlsx")
 	c.Assert(err, IsNil)
 }
 
 func (s *SliceReaderSuite) TestFileObjToSlice(c *C) {
-	f, err := OpenFile("./testdocs/testfile.xlsx")
+	f, err := OpenFile("../testdocs/testfile.xlsx")
 	output, err := f.ToSlice()
 	c.Assert(err, IsNil)
 	fileToSliceCheckOutput(c, output)
@@ -977,12 +977,12 @@ func fileToSliceCheckOutput(c *C, output [][][]string) {
 }
 
 func (s *SliceReaderSuite) TestFileToSliceUnmerged(c *C) {
-	output, err := FileToSliceUnmerged("./testdocs/testfile.xlsx")
+	output, err := FileToSliceUnmerged("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	fileToSliceCheckOutput(c, output)
 
 	// merged cells
-	output, err = FileToSliceUnmerged("./testdocs/merged_cells.xlsx")
+	output, err = FileToSliceUnmerged("../testdocs/merged_cells.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(output[0][6][2], Equals, "Happy New Year!")
 	c.Assert(output[0][6][1], Equals, "Happy New Year!")
@@ -994,7 +994,7 @@ func (l *FileSuite) TestReadWorkbookWithTypes(c *C) {
 	var xlsxFile *File
 	var err error
 
-	xlsxFile, err = OpenFile("./testdocs/testcelltypes.xlsx")
+	xlsxFile, err = OpenFile("../testdocs/testcelltypes.xlsx")
 	c.Assert(err, IsNil)
 	c.Assert(len(xlsxFile.Sheets), Equals, 1)
 	sheet := xlsxFile.Sheet["Sheet1"]
@@ -1048,7 +1048,7 @@ func (l *FileSuite) TestReadWorkbookWithTypes(c *C) {
 }
 
 func (s *SliceReaderSuite) TestFileWithEmptyRows(c *C) {
-	f, err := OpenFile("./testdocs/empty_rows.xlsx")
+	f, err := OpenFile("../testdocs/empty_rows.xlsx")
 	c.Assert(err, IsNil)
 	sheet, ok := f.Sheet["EmptyRows"]
 	c.Assert(ok, Equals, true)
@@ -1066,7 +1066,7 @@ func (s *SliceReaderSuite) TestFileWithEmptyRows(c *C) {
 }
 
 func (s *SliceReaderSuite) TestFileWithEmptyCols(c *C) {
-	f, err := OpenFile("./testdocs/empty_rows.xlsx")
+	f, err := OpenFile("../testdocs/empty_rows.xlsx")
 	c.Assert(err, IsNil)
 	sheet, ok := f.Sheet["EmptyCols"]
 	c.Assert(ok, Equals, true)

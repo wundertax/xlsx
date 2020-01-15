@@ -219,7 +219,7 @@ func (f *Fuzzy) TestRandomBrokenParts(c *C) {
 	}
 	log.Println("Fuzzy test is using this -test.seed=" + strconv.FormatInt(*randseed, 10))
 	rand.Seed(*randseed)
-	template, err := zip.OpenReader("./testdocs/testfile.xlsx")
+	template, err := zip.OpenReader("../testdocs/testfile.xlsx")
 	c.Assert(err, IsNil)
 	defer template.Close()
 
