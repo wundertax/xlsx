@@ -799,6 +799,9 @@ func readSheetsFromZipFile(f *zip.File, file *File, sheetXMLMap map[string]strin
 		return nil, nil, err
 	}
 	file.Date1904 = workbook.WorkbookPr.Date1904
+	if err := file.FileSharing.fromXLSXFileSharing(&workbook.FileSharing); err != nil {
+		return nil, nil, err
+	}
 
 	for entryNum := range workbook.DefinedNames.DefinedName {
 		file.DefinedNames = append(file.DefinedNames, &workbook.DefinedNames.DefinedName[entryNum])

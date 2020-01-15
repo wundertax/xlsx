@@ -25,6 +25,7 @@ type File struct {
 	Sheet          map[string]*Sheet
 	theme          *theme
 	DefinedNames   []*xlsxDefinedName
+	FileSharing    *FileSharing
 }
 
 const NoRowLimit int = -1
@@ -35,6 +36,7 @@ func NewFile() *File {
 		Sheet:        make(map[string]*Sheet),
 		Sheets:       make([]*Sheet, 0),
 		DefinedNames: make([]*xlsxDefinedName, 0),
+		FileSharing:  new(FileSharing),
 	}
 }
 
@@ -197,6 +199,7 @@ func (f *File) AppendSheet(sheet Sheet, sheetName string) (*Sheet, error) {
 func (f *File) makeWorkbook() xlsxWorkbook {
 	return xlsxWorkbook{
 		FileVersion: xlsxFileVersion{AppName: "Go XLSX"},
+		FileSharing: *f.FileSharing.makeXLSXFileSharing(),
 		WorkbookPr:  xlsxWorkbookPr{ShowObjects: "all"},
 		BookViews: xlsxBookViews{
 			WorkBookView: []xlsxWorkBookView{

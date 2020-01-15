@@ -36,6 +36,7 @@ type xlsxWorkbookRelation struct {
 type xlsxWorkbook struct {
 	XMLName            xml.Name               `xml:"http://schemas.openxmlformats.org/spreadsheetml/2006/main workbook"`
 	FileVersion        xlsxFileVersion        `xml:"fileVersion"`
+	FileSharing        xlsxFileSharing        `xml:"fileSharing"`
 	WorkbookPr         xlsxWorkbookPr         `xml:"workbookPr"`
 	WorkbookProtection xlsxWorkbookProtection `xml:"workbookProtection"`
 	BookViews          xlsxBookViews          `xml:"bookViews"`
@@ -61,6 +62,14 @@ type xlsxFileVersion struct {
 	LastEdited   string `xml:"lastEdited,attr,omitempty"`
 	LowestEdited string `xml:"lowestEdited,attr,omitempty"`
 	RupBuild     string `xml:"rupBuild,attr,omitempty"`
+}
+
+// xlsxFileSharing directly maps the fileVersion element from the
+// namespace http://schemas.openxmlformats.org/spreadsheetml/2006/main
+// - currently I have not checked it for completeness - it does as
+// much as I need.
+type xlsxFileSharing struct {
+	ReadOnlyRecommended bool `xml:"readOnlyRecommended,attr,omitempty"`
 }
 
 // xlsxWorkbookPr directly maps the workbookPr element from the
